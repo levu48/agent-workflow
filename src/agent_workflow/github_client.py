@@ -2,13 +2,11 @@ import os
 from github import Github
 
 def get_repository():
-    name = os.environ["GITHUB_REPOSITORY"]
-    return Github(os.environ["GITHUB_TOKEN"]).get_repo(name)
+    return Github(os.environ["GITHUB_TOKEN"]).get_repo(os.environ["GITHUB_REPOSITORY"])
 
 def get_pull_request():
-    number = int(os.environ["PR_NUMBER"])
     repo = get_repository()
-    pr = repo.get_pull(number)
+    pr = repo.get_pull(int(os.environ["PR_NUMBER"]))
     if pr.head.repo is None or pr.head.repo.full_name != repo.full_name:
         raise ValueError("Only same-repository pull requests may be reviewed")
     return repo, pr
@@ -27,11 +25,3 @@ def get_diff(pr, max_chars: int = 100_000) -> str:
     if not chunks:
         raise ValueError("Empty PR diff")
     return "\n".join(chunks)
-
-def post_review_comment(pr, body: str):
-    marker = "<!-- agent-workflow-review -->"
-    for comment in pr.get_issue_comments():
-        if marker in comment.body and comment.user.login == pr._requester.requestJsonAndCheck.__self__.auth.get_user().login:
-            comment.edit(marker + "\n" + body)
-            return
-    pr.create_issue_comment(marker + "\n" + body)
