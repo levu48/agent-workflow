@@ -1,0 +1,12 @@
+version: 1
+implementation:
+  mode: manual_dispatch
+  max_turns: 20
+review:
+  max_revision_cycles: 3
+  human_merge_required: true
+  block_on: [critical, high]
+  model_env: OPENAI_REVIEW_MODEL
+security:
+  allow_fork_secret_access: false
+  auto_merge: false
