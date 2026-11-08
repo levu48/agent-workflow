@@ -1,0 +1,14 @@
+version: 1
+focus:
+  - correctness
+  - security
+  - architecture_compliance
+  - acceptance_criteria
+severity:
+  critical: exploitable vulnerability or catastrophic data loss
+  high: serious defect or security issue
+  medium: meaningful issue with limited impact
+  low: minor issue
+decision:
+  blocking_severities: [critical, high]
+  inconclusive_blocks: true

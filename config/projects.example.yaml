@@ -1,0 +1,6 @@
+projects:
+  example:
+    repository: levu48/example-app
+    architecture_path: docs/architecture.md
+    requirements_path: docs/requirements.md
+    implementation_mode: github_hosted
