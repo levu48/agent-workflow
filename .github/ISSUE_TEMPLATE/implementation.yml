@@ -1,0 +1,25 @@
+name: Approved implementation task
+description: Scoped task for Claude Code implementation
+title: "[Implementation] "
+labels: []
+body:
+  - type: textarea
+    id: spec
+    attributes:
+      label: Approved specification links
+      description: Link to the approved architecture and requirements
+    validations:
+      required: true
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Acceptance criteria
+      description: Include measurable, testable criteria
+    validations:
+      required: true
+  - type: textarea
+    id: tests
+    attributes:
+      label: Required tests
+    validations:
+      required: true
