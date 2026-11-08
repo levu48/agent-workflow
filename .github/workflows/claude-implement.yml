@@ -1,0 +1,29 @@
+name: Claude Implementation
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Approved implementation issue number'
+        required: true
+        type: number
+permissions:
+  contents: write
+  issues: read
+  pull-requests: write
+jobs:
+  implement:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Implement approved issue #${{ inputs.issue_number }} in this repository.
+            Read CLAUDE.md, AGENTS.md, and docs/architecture.md first.
+            Follow acceptance criteria, add tests, and open a PR for human review.
+            Never merge or modify security controls without approval.
+          claude_args: '--max-turns 20'
